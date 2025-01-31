@@ -1,6 +1,7 @@
 const Jwt = require('@hapi/jwt');
 const InvariantError = require('../../../Commons/exceptions/InvariantError');
 const JwtTokenManager = require('../JwtTokenManager');
+const config = require('../../../Commons/config');
 
 describe('JwtTokenManager', () => {
   describe('createAccessToken function', () => {
@@ -18,7 +19,7 @@ describe('JwtTokenManager', () => {
       const accessToken = await jwtTokenManager.createAccessToken(payload);
 
       // Assert
-      expect(mockJwtToken.generate).toBeCalledWith(payload, process.env.ACCESS_TOKEN_KEY);
+      expect(mockJwtToken.generate).toBeCalledWith(payload, config.auth.accessTokenKey);
       expect(accessToken).toEqual('mock_token');
     });
   });
@@ -38,7 +39,7 @@ describe('JwtTokenManager', () => {
       const refreshToken = await jwtTokenManager.createRefreshToken(payload);
 
       // Assert
-      expect(mockJwtToken.generate).toBeCalledWith(payload, process.env.REFRESH_TOKEN_KEY);
+      expect(mockJwtToken.generate).toBeCalledWith(payload, config.auth.refreshTokenKey);
       expect(refreshToken).toEqual('mock_token');
     });
   });
@@ -49,7 +50,7 @@ describe('JwtTokenManager', () => {
       const jwtTokenManager = new JwtTokenManager(Jwt.token);
       const accessToken = await jwtTokenManager.createAccessToken({ username: 'dicoding' });
 
-      // Action and Assert
+      // Action & Assert
       await expect(jwtTokenManager.verifyRefreshToken(accessToken))
         .rejects
         .toThrow(InvariantError);
@@ -60,7 +61,7 @@ describe('JwtTokenManager', () => {
       const jwtTokenManager = new JwtTokenManager(Jwt.token);
       const refreshToken = await jwtTokenManager.createRefreshToken({ username: 'dicoding' });
 
-      // Action and Assert
+      // Action & Assert
       await expect(jwtTokenManager.verifyRefreshToken(refreshToken))
         .resolves
         .not.toThrow(InvariantError);
@@ -76,7 +77,7 @@ describe('JwtTokenManager', () => {
       // Action
       const { username: expectedUsername } = await jwtTokenManager.decodePayload(accessToken);
 
-      // Action and Assert
+      // Action & Assert
       expect(expectedUsername).toEqual('dicoding');
     });
   });

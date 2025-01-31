@@ -7,7 +7,7 @@ describe('UserLogin entities', () => {
       username: 'dicoding',
     };
 
-    // Action and Assert
+    // Action & Assert
     expect(() => new UserLogin(payload)).toThrowError('USER_LOGIN.NOT_CONTAIN_NEEDED_PROPERTY');
   });
 
@@ -15,10 +15,10 @@ describe('UserLogin entities', () => {
     // Arrange
     const payload = {
       username: 'dicoding',
-      password: 12344,
+      password: 12345,
     };
 
-    // Action and Assert
+    // Action & Assert
     expect(() => new UserLogin(payload)).toThrowError('USER_LOGIN.NOT_MEET_DATA_TYPE_SPECIFICATION');
   });
 

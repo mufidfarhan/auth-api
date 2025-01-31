@@ -21,7 +21,6 @@ const AuthenticationsTableTestHelper = {
 
     return result.rows;
   },
-
   async cleanTable() {
     await pool.query('TRUNCATE TABLE authentications');
   },

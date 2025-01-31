@@ -8,7 +8,7 @@ describe('RefreshAuthenticationUseCase', () => {
     const useCasePayload = {};
     const refreshAuthenticationUseCase = new RefreshAuthenticationUseCase({});
 
-    // Action and Assert
+    // Action & Assert
     await expect(refreshAuthenticationUseCase.execute(useCasePayload))
       .rejects
       .toThrowError('REFRESH_AUTHENTICATION_USE_CASE.NOT_CONTAIN_REFRESH_TOKEN');
@@ -17,11 +17,11 @@ describe('RefreshAuthenticationUseCase', () => {
   it('should throw error if refresh token not string', async () => {
     // Arrange
     const useCasePayload = {
-      refreshToken: 12345,
+      refreshToken: 1,
     };
     const refreshAuthenticationUseCase = new RefreshAuthenticationUseCase({});
 
-    // Action and Assert
+    // Action & Assert
     await expect(refreshAuthenticationUseCase.execute(useCasePayload))
       .rejects
       .toThrowError('REFRESH_AUTHENTICATION_USE_CASE.PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION');
@@ -40,10 +40,10 @@ describe('RefreshAuthenticationUseCase', () => {
     mockAuthenticationTokenManager.verifyRefreshToken = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockAuthenticationTokenManager.decodePayload = jest.fn()
-      .mockImplementation(() => Promise.resolve({ username: 'dicoding', id: 'user-123' }));
+      .mockImplementation(() => Promise.resolve({ username: 'dicoding' }));
     mockAuthenticationTokenManager.createAccessToken = jest.fn()
       .mockImplementation(() => Promise.resolve('some_new_access_token'));
-    // Create the use case instance
+    // Create the use case instace
     const refreshAuthenticationUseCase = new RefreshAuthenticationUseCase({
       authenticationRepository: mockAuthenticationRepository,
       authenticationTokenManager: mockAuthenticationTokenManager,
@@ -60,7 +60,7 @@ describe('RefreshAuthenticationUseCase', () => {
     expect(mockAuthenticationTokenManager.decodePayload)
       .toBeCalledWith(useCasePayload.refreshToken);
     expect(mockAuthenticationTokenManager.createAccessToken)
-      .toBeCalledWith({ username: 'dicoding', id: 'user-123' });
+      .toBeCalledWith({ username: 'dicoding' });
     expect(accessToken).toEqual('some_new_access_token');
   });
 });

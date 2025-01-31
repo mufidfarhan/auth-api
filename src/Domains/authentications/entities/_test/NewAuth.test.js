@@ -5,10 +5,9 @@ describe('NewAuth entities', () => {
     // Arrange
     const payload = {
       accessToken: 'accessToken',
-      // tidak ada refresh token
     };
 
-    // Action and Assert
+    // Action & Assert
     expect(() => new NewAuth(payload)).toThrowError('NEW_AUTH.NOT_CONTAIN_NEEDED_PROPERTY');
   });
 
@@ -19,7 +18,7 @@ describe('NewAuth entities', () => {
       refreshToken: 1234,
     };
 
-    // Action and Assert
+    // Action & Assert
     expect(() => new NewAuth(payload)).toThrowError('NEW_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION');
   });
 

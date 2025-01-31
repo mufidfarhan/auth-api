@@ -1,3 +1,4 @@
+const ClientError = require('../ClientError');
 const InvariantError = require('../InvariantError');
 
 describe('InvariantError', () => {
@@ -9,4 +10,3 @@ describe('InvariantError', () => {
     expect(invariantError.name).toEqual('InvariantError');
   });
 });
-

@@ -17,6 +17,7 @@ describe('AuthenticationRepository postgres', () => {
       // Arrange
       const authenticationRepository = new AuthenticationRepositoryPostgres(pool);
       const token = 'token';
+
       // Action
       await authenticationRepository.addToken(token);
 
@@ -27,13 +28,13 @@ describe('AuthenticationRepository postgres', () => {
     });
   });
 
-  describe('checkAvailabilitiyToken function', () => {
+  describe('checkAvailabilityToken function', () => {
     it('should throw InvariantError if token not available', async () => {
       // Arrange
       const authenticationRepository = new AuthenticationRepositoryPostgres(pool);
       const token = 'token';
 
-      // Action and Assert
+      // Action & Assert
       await expect(authenticationRepository.checkAvailabilityToken(token))
         .rejects.toThrow(InvariantError);
     });
@@ -44,7 +45,7 @@ describe('AuthenticationRepository postgres', () => {
       const token = 'token';
       await AuthenticationsTableTestHelper.addToken(token);
 
-      // Action and Assert
+      // Action & Assert
       await expect(authenticationRepository.checkAvailabilityToken(token))
         .resolves.not.toThrow(InvariantError);
     });
@@ -66,4 +67,3 @@ describe('AuthenticationRepository postgres', () => {
     });
   });
 });
-

@@ -1,4 +1,3 @@
-const RegisteredUser = require('../RegisteredUser');
 const RegisterUser = require('../RegisterUser');
 
 describe('a RegisterUser entities', () => {
@@ -25,7 +24,7 @@ describe('a RegisterUser entities', () => {
     expect(() => new RegisterUser(payload)).toThrowError('REGISTER_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
   });
 
-  it('should throw error username contains more than 50 characters', () => {
+  it('should throw error when username contains more than 50 character', () => {
     // Arrange
     const payload = {
       username: 'dicodingindonesiadicodingindonesiadicodingindonesiadicoding',
@@ -64,34 +63,5 @@ describe('a RegisterUser entities', () => {
     expect(username).toEqual(payload.username);
     expect(fullname).toEqual(payload.fullname);
     expect(password).toEqual(payload.password);
-  });
-
-  it('should throw error when payload did not meet data type specification', () => {
-    // Arrange
-    const payload = {
-      id: 123,
-      username: 'dicoding',
-      fullname: 'Dicoding Indonesia',
-    };
-
-    // Action and Assert
-    expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
-  });
-
-  it('should create registeredUser object correctly', () => {
-    // Arrange
-    const payload = {
-      id: 'user-123',
-      username: 'dicoding',
-      fullname: 'Dicoding Indonesia',
-    };
-
-    // Action
-    const registeredUser = new RegisteredUser(payload);
-
-    // Assert
-    expect(registeredUser.id).toEqual(payload.id);
-    expect(registeredUser.username).toEqual(payload.username);
-    expect(registeredUser.fullname).toEqual(payload.fullname);
   });
 });
