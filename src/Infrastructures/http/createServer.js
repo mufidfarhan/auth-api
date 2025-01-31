@@ -7,8 +7,8 @@ const config = require('../../Commons/config');
 
 const createServer = async (container) => {
   const server = Hapi.server({
-    port: process.env.PORT,
-    host: process.env.HOST,
+    host: config.app.host,
+    port: config.app.port,
     debug: config.app.debug,
   });
 
